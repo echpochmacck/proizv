@@ -1,0 +1,3 @@
+<?php if ($user->request->get('page') == end($pages)['page']):?>
+					<li><a href="<?=$response->getLink('posts.php',['pageOf' => $page, 'offset' => $offset + 1, 'page' => $page + 1])?>">&gt;</a></li>
+					<?php else:?> --
