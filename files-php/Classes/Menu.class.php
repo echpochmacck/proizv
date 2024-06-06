@@ -11,57 +11,39 @@ class Menu
         $this->user = $user;
     }
 
-    public function writeHtml(): string
+    public function writeHtml(object $user): string
     {
-        // return  '<div id="colorlib-page">
-        // <aside id="colorlib-aside" role="complementary" class="js-fullheight">
-        //     <nav id="colorlib-main-menu" role="navigation">
-        //         <ul>
-        //             <li class="colorlib-active"><a href="index.php">Главная</a></li>
-        //             <li><a href="posts.php">Блоги</a></li>
-        //             <li><a href="users.php">Пользователи</a></li>
-        //             <li><a href="about.php">О нас</a></li>
-        //             <li><a href="login.php">Вход</a> / <a href="register.php">Регистрация</a></li>
-        //             <li><a href="#">Выход</a></li>
-        //         </ul>
-        //     </nav>
-        // </aside> END COLORLIB-ASIDE';
-
-        // return "<div id='colorlib-page'>
-        // <aside id='colorlib-aside' role='complementar' class='js-fullheight'>
-        //     <nav id='colorlib-main-menu' role='navigation'>
-        //         <ul>
-        //         <li class='colorlib-active'><a href='{$this->response->getLink('/practice/')}'>Главная</a></li>
-        //         <li><a href='{$this->response->getLink('/practice/posts.php')}'>Блоги</a></li>
-        //         <li><a href='{$this->response->getLink('/practice/users.php')}'>Пользователи</a></li>
-        //         <li><a href='{$this->response->getLink('/practice/about.php')}'>О нас</a></li>
-        //         <li><a href='{$this->response->getLink('/practice/login.php')}'>Вход</a> / <a href='{$this->response->getLink('/practice/register.php')}'>Регистрация</a></li>
-        //         <li><a href='{$this->response->getLink('/practice/logout.php')}'>Выход</a></li>                
-        //         </ul>
-        //     </nav>
-        // </aside> END COLORLIB-ASIDE";
-        // var_dump($this->arrMenu);
-
+        if ($user->isGuest) {
+            $role = 'guest';
+        } else if($user->isAdmin) {
+            $role = 'admin';
+        } else {
+            $role = 'avtor';
+        }
         $block =  "<div id='colorlib-page'>
         <aside id='colorlib-aside' role='complementary' class='js-fullheight'>
             <nav id='colorlib-main-menu' role='navigation'>
                 <ul>";
     $str = '';
     foreach ($this->arrMenu as $value) {
-    
-        
-
-            if ( ($value['title'] === 'Пользователи' && ($this->user->isGuest || !$this->user->isAdmin))) {
-                $str.=''; 
-            } else if (($value['title'] === 'Вход' || $value['title'] === 'Регистрация') && $this->user->id) {
-                $str.='';
-            } else if ($_SERVER['SCRIPT_NAME'] === '/practice/'. $value['link']) {
-            $str .= "<li class='colorlib-active'><a href='". $this->response->getLink($value['link']). "'>" . $value['title']. "</a></li>";
-        }else if (($value['title'] === 'Выход') && !$this->user->id) {
-            $str.='';
-        }else {
-            $str .= "<li><a href='". $this->response->getLink($value['link']). "'>". $value['title']."</a></li>";
+        if (array_filter($value['role'], fn($elem) => $elem === $role)) {
+            if ($_SERVER['SCRIPT_NAME'] === '/practice/'. $value['link']) {
+                $str .= "<li class='colorlib-active'><a href='". $this->response->getLink($value['link']). "'>" . $value['title']. "</a></li>";
+            } else {
+                $str .= "<li><a href='". $this->response->getLink($value['link']). "'>". $value['title']."</a></li>";
+            }   
         }
+        //     if ( ($value['title'] === 'Пользователи' && ($this->user->isGuest || !$this->user->isAdmin))) {
+        //         $str.=''; 
+        //     } else if (($value['title'] === 'Вход' || $value['title'] === 'Регистрация') && $this->user->id) {
+        //         $str.='';
+        //     } else if ($_SERVER['SCRIPT_NAME'] === '/practice/'. $value['link']) {
+        //     $str .= "<li class='colorlib-active'><a href='". $this->response->getLink($value['link']). "'>" . $value['title']. "</a></li>";
+        // }else if (($value['title'] === 'Выход') && !$this->user->id) {
+        //     $str.='';
+        // }else {
+        //     $str .= "<li><a href='". $this->response->getLink($value['link']). "'>". $value['title']."</a></li>";
+        // }
     }
     
     $end =  "</ul>

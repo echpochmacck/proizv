@@ -1,7 +1,7 @@
 <?php require_once('./files-php/parts/header.php') ?>
 
 <?php require_once('./files-php/init/init-about.php');
-echo $menu->writeHtml();
+echo $menu->writeHtml($user);
 ?>
 <div id="colorlib-main">
     <section class="ftco-about img ftco-section ftco-no-pt ftco-no-pb" id="about-section">

@@ -12,6 +12,6 @@ $arrMenu = [
 $toSql = [
     'host'=>'127.0.0.1',
     'user'=>'root',
-    'password'=>'',
+    'password'=>'root',
     'basename'=>'forum'
 ];
