@@ -6,6 +6,7 @@ function posts() {
     datatype: "json",
     success: function (data) {
       arr = JSON.parse(data);
+      console.log(arr)
       html = "";
       arr.forEach((key, value) => {
         $html += `<div class='col-md-12 col-xl-12'>
@@ -28,9 +29,11 @@ function posts() {
                                        <a href='".$response->getlink('post.php', ['post-id'=>$value->id])."' class='btn-custom'>
                                              Подробнее... <span class='ion-ios-arrow-forward'></span></a>
                                     </div>`;
+
+                                    
                                                
       });
-    },
+    }
   });
 }
 
