@@ -55,8 +55,8 @@ function posts() {
       $('.row pt-md-4').append(html);
 
     },
-    error: function (jqXHR, textStatus, errorThrown) {
-      console.error("AJAX error:", textStatus, errorThrown);
+    error: () => {
+      console.error("AJAX error");
     }
     
   });
