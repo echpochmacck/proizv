@@ -27,23 +27,13 @@ class Menu
     $str = '';
     foreach ($this->arrMenu as $value) {
         if (array_filter($value['role'], fn($elem) => $elem === $role)) {
-            if ($_SERVER['SCRIPT_NAME'] === '/practice/'. $value['link']) {
+            // var_dump($_SERVER['SCRIPT_NAME']);
+            if ($_SERVER['SCRIPT_NAME'] === '/proizv/'. $value['link']) {
                 $str .= "<li class='colorlib-active'><a href='". $this->response->getLink($value['link']). "'>" . $value['title']. "</a></li>";
             } else {
                 $str .= "<li><a href='". $this->response->getLink($value['link']). "'>". $value['title']."</a></li>";
             }   
         }
-        //     if ( ($value['title'] === 'Пользователи' && ($this->user->isGuest || !$this->user->isAdmin))) {
-        //         $str.=''; 
-        //     } else if (($value['title'] === 'Вход' || $value['title'] === 'Регистрация') && $this->user->id) {
-        //         $str.='';
-        //     } else if ($_SERVER['SCRIPT_NAME'] === '/practice/'. $value['link']) {
-        //     $str .= "<li class='colorlib-active'><a href='". $this->response->getLink($value['link']). "'>" . $value['title']. "</a></li>";
-        // }else if (($value['title'] === 'Выход') && !$this->user->id) {
-        //     $str.='';
-        // }else {
-        //     $str .= "<li><a href='". $this->response->getLink($value['link']). "'>". $value['title']."</a></li>";
-        // }
     }
     
     $end =  "</ul>

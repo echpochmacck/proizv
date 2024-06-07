@@ -16,7 +16,7 @@ function posts() {
       posts.forEach((value) => {
         // console.log(value)
         html += `<div class='col-md-12 col-xl-12'>
-         <div class='blog-entry ftco-animate d-md-flex'>`;
+        <div class='blog-entry ftco-animate d-md-flex fadeInUp ftco-animated' >`;
         html += `<div class='text text-2 pl-md-4'>
          <h3 class='mb-2'><a href='post-action.php?post-id=${value.id}'>${value.title}</a></h3>
                  <div class='meta-wrap'>
@@ -25,7 +25,7 @@ function posts() {
           html += `<div class='vcard bio'> <img src = 'files-php/uploads/${value.user.link}' width='100px' height = '100px' alt='Image placeholder'> </div>`;
         }
         html += `<span class='text text-3'>${value.user.login}</span>
-                                      <span><i class='icon-calendar mr-2'></i>${value.date}</span>
+                      <span><i class='icon-calendar mr-2'></i>${value.date}</span>
                     <span><i class='icon-comment2 mr-2'></i> ${value.numberOfComment} Comment</span>
                  </p>
                                 </div>
@@ -52,7 +52,7 @@ function posts() {
          </div>`
       })
       
-      $('.row pt-md-4').append(html);
+      $('.pt-md-4').append(html);
 
     },
     error: () => {
