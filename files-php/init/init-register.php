@@ -2,16 +2,23 @@
 require_once 'init.php';
 
 if ($user->request->isPost) {
-  // var_ ump($_FILES);die;
+  // var_dump($_FILES);die;
   // var_dump($user->request->post());die;
   $user->load(($user->request->post()));
+  $arr = [];
   if ($user->save()) {
     // var_dump($user);
     $user->login($user->login, $user->password);
+    $token = json_encode($user->token);
+    $arr['token'] = $token;
+    
+  } else {
+    $arr['errors'] = $user->getErros();
     // var_dump($user);
-    // Response::location('/practice/', Response::prepareParams('token=' . $user->token));
-    $response->redirect('/practice/');
-  } 
+  }
+
+  $arr = json_encode($arr);
+  echo $arr;
 }
 
 //  if (array_key_exists('query',  $request->geturl())) {

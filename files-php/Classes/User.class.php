@@ -158,6 +158,11 @@ class User extends Data
         return $this->validateData();
     }
 
+    public function getErros(): array{
+        $arr = get_object_vars($this);
+        $arr = array_filter($arr, fn($value,$key) => str_contains($key, 'Message'),ARRAY_FILTER_USE_BOTH);
+        return $arr;
+    }
 
     public function save(): bool
     {
@@ -168,7 +173,7 @@ class User extends Data
             $hash = $this->sequrity->hash($this->password);
 
 
-            var_dump($this->loginValid);
+            // var_dump($this->loginValid);
             if ($this->mysql->querry(
                 
                 'INSERT INTO ' .
