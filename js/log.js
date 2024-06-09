@@ -1,32 +1,37 @@
-import { logForm, postLog } from "./modules/log-form.js";
+import {logForm} from "./modules/log-form.js";
 // import getToken from "./modules/login.js";
 $(() => {
+
     logForm();
 
     $('form').on('submit', function (e) {
         e.preventDefault();
-        // console.log('click');
-        let user = {};
-        user.login = $('#login').val()
-        user.password = $('#password').val()
-        user = JSON.stringify(user);
-        // запрос с данными формы
+        // получение данных с формы
+        let  formData = $('form')[0];
+        formData =  new FormData(formData);
+        formData = Object.fromEntries(formData);
+        // перевод в json
+        formData = JSON.stringify(formData);
+        console.log(formData);
+        // запрос
         $.ajax({
-            type: "get",
-            url: "./files-php/init/init-login.php",
-            data: { user: user },
-            // dataType: 'srting',
+            type: "POST",
+            url: "./files-php/php-parts/log.php",
+            data:  formData,
+            // contentType: "application/json",
+            // dataType: "json",
             success: function (response) {
-                if (response) {
-                    sessionStorage.setItem('userToken', response);
+                    const obj = ($.parseJSON(response));
+                    if (obj.token) {
+                    sessionStorage.setItem('userToken', obj.token);
                     window.location.href = 'index.php';
-                }
+                    } else {
+                        $('.invalid-feedback').text(obj.error);
+                    }
             },
             error: () => {
                 console.log('nenorm')
             }
         });
-
-        // postLog()
     });
 })

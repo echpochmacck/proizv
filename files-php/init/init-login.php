@@ -1,25 +1,27 @@
 <?php
 require_once 'init.php';
-
-if ($user->request->get('user')) {
-    // echo 'user';
-    
-    $json = $user->request->get('user');
-    $json = json_decode($json);
-    $login = $json->login;
-    $password = $json->password;
+$json = file_get_contents('php://input');
+if ($json) {
+    $arr = json_decode($json, true);
+    // var_dump($arr);
+    $login = $arr['login'];
+    $password = $arr['password'];
      $bool = $user->login($login, $password);
     //  echo $password;
+    $arr = [];
     if($bool){
-    echo $user->token;
+    $arr['token'] = $user->token;
     } else {
-        echo '';
+      $arr ['error'] = 'Неверный логин или пароль';
     }
+    $arr = json_encode($arr);
+    echo $arr;
+}
 
-    // echo 'dsadsa';
-    // echo $json;
-    // echo $json;
-    }
+//     // echo 'dsadsa';
+//     // echo $json;
+//     // echo $json;
+//     }
 // echo 'response';
 // if(($user->request->get('login'))){
 //     // if()

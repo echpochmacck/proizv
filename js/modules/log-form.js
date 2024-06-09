@@ -7,12 +7,12 @@ function logForm() {
     </div>
     <div class="row block-9">
         <div class="col-lg-6 d-flex">
-            <form action="" class="bg-light p-5 contact-form">
+            <form action="" class="bg-light p-5 contact-form" id ="form" method="POST" >
                 <div class="form-group">
-                    <input type="text" class="form-control is-invalid" placeholder="Your Login" id="login">
+                    <input type="text" class="form-control is-invalid" placeholder="Your Login" id="login" name="login">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control is-invalid" placeholder="Password" id="password">
+                    <input type="password" class="form-control is-invalid" placeholder="Password" id="password" name="password">
                     <div class="invalid-feedback">
                         
                     </div>
@@ -27,22 +27,7 @@ function logForm() {
     
 }
 
-function postLog(){
-    
-        e.preventDefault();
-        const data = new FormData(login)
-        console.log(data);
-        // $.ajax({
-        //     type: "GET",
-        //     url: "../files-php/init/init-login.php",
-        //     data: data,
-        //     dataType: "json",
-        //     success: function (response) {
-                
-        //     }
-        // });
-        
-    };
 
 
-export {logForm, postLog};
+
+export {logForm};
